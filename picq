@@ -10,7 +10,7 @@ NC='\033[0m'
 CHECK='\u2713'
 CROSS='\u0445'
 
-#function help() {
+function help() {
     echo "Description:"
     echo "  picq is a complete cli for developing embedded systems on the Microchip PIC16 and PIC18 microcontrollers."
     echo "  It bundles the sdcc compiler, which in turn bundles the gputils consisting of the gpasm assembler and gplink linker."
@@ -39,5 +39,15 @@ CROSS='\u0445'
     echo ""
     echo "Further help:"
     echo "  picq home          Open the github page with further description."
+}    
+
+#function check_for_software() {
+    SDCC_PKG_OK=$(dpkg-query -W  --showformat='${Status}' sdcc | grep "installed ok installed")
+    echo "Looking for SDCC: $SDCC_PKG_OK"
+    if [[ "$SDCC_PKG_OK" == "" ]]
+    then
+	echo "Installing SDCC"
+	sudo apt-get install sdcc
+    fi
     
-    
+

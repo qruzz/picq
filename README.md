@@ -9,6 +9,9 @@ For linux picq can be installed through `apt-get` package manager. It is also av
 
 ```zsh	
 sudo apt-get install picq
+```
+
+```zsh
 brew update && brew install picq
 ```
 
@@ -28,12 +31,12 @@ picq [OPTIONS...] <file_name> [<file_name>...]
 
 #### Options:
 
-```zsh
+```
 -h --help          Display the help screen.
 -v --version       Display version of cli.
 --verbose          Run as verbosem, showing more information.
 -t --target        Specify the target microprocessor.
-	-c --compile-only  Only compile the files. Dont flash to chip.
+-c --compile-only  Only compile the files. Dont flash to chip.
 -p --port          Specify the port on which to flash.
 -b --baud          Specify the BAUD rate. Default is 57600.
 -a --asemble       Asemble an .asm file, link it and create an executable. Dont flash.
@@ -42,7 +45,7 @@ picq [OPTIONS...] <file_name> [<file_name>...]
 
 #### Example usage:
 
-```zsh
+```
 picq -c -t pic18f4550 main.c
 picq -t pic18f4550 -p /dev/cu.usbmodemFD121 -b 9600 main.c
 picq -c -t pic18f4550 main.c
