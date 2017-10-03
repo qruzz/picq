@@ -1,0 +1,43 @@
+#!/bin/zsh
+
+# Color Definitions
+
+RED='\033[0;91m'
+NC='\033[0m'
+
+# UTF8 Icons
+
+CHECK='\u2713'
+CROSS='\u0445'
+
+#function help() {
+    echo "Description:"
+    echo "  picq is a complete cli for developing embedded systems on the Microchip PIC16 and PIC18 microcontrollers."
+    echo "  It bundles the sdcc compiler, which in turn bundles the gputils consisting of the gpasm assembler and gplink linker."
+    echo "  For flashing the executable hex files to the target microcontroller, picq is utilising the picpgm cli."
+    echo ""
+    echo "Usage:"
+    echo "  picq [OPTIONS...] <file_name> [<file_name>...]"
+    echo ""
+    echo "Option:"
+    echo "  -h --help          Display the help screen."
+    echo "  -v --version       Display version of cli."
+    echo "  --verbose          Run as verbosem, showing more information."
+    echo "  -t --target        Specify the target microprocessor."
+    echo "  -c --compile-only  Only compile the files. Dont flash to chip."
+    echo "  -p --port          Specify the port on which to flash."
+    echo "  -b --baud          Specify the BAUD rate. Default is 57600."
+    echo "  -a --asemble       Asemble an .asm file, link it and create an executable. Dont flash."
+    echo "  -f --flash         Flash a hex file to the microcontroller."
+    echo ""
+    echo "Example usage:"
+    echo "  picq -c -t pic18f4550 main.c"
+    echo "  picq -t pic18f4550 -p /dev/cu.usbmodemFD121 -b 9600 main.c"
+    echo "  picq -c -t pic18f4550 main.c"
+    echo "  picq -a -t pic18f4550 main.asm subfile.asm"
+    echo "  picq -f -t pic18f4550 main.hex"
+    echo ""
+    echo "Further help:"
+    echo "  picq home          Open the github page with further description."
+    
+    
