@@ -5,34 +5,47 @@ It bundles the sdcc compiler, which in turn bundles the gputils consisting of th
 For flashing the executable hex files to the target microcontroller, picq is utilising the picpgm cli.
 
 ## Installation:
-For linux `picq` can be installed through `apt-get` package manager. It is also available on the forked Homebrew, Linuxbrew:
-	
-	sudo apt-get install picq
-	brew update && brew install picq
+For linux picq can be installed through `apt-get` package manager. It is also available on the forked Homebrew, Linuxbrew:
+
+```zsh	
+sudo apt-get install picq
+brew update && brew install picq
+```
 
 For installation on macOS, the package is available on Homebrew:
 
-	brew update && brew install picq
+```zsh
+brew update && brew install picq
+```
 
 If for some reason, your not using a package manager, you can clone this git repository, and place the excecutable in your PATH.
 
 ## Usage:
-   	picq [OPTIONS...] <file_name> [<file_name>...]
+
+```zsh
+picq [OPTIONS...] <file_name> [<file_name>...]
+```
 
 #### Options:
-    -h --help          Display the help screen.
-    -v --version       Display version of cli.
-    --verbose          Run as verbosem, showing more information.
-    -t --target        Specify the target microprocessor.
-   	-c --compile-only  Only compile the files. Dont flash to chip.
-    -p --port          Specify the port on which to flash.
-    -b --baud          Specify the BAUD rate. Default is 57600.
-    -a --asemble       Asemble an .asm file, link it and create an executable. Dont flash.
-    -f --flash         Flash a hex file to the microcontroller.
-    
+
+```zsh
+-h --help          Display the help screen.
+-v --version       Display version of cli.
+--verbose          Run as verbosem, showing more information.
+-t --target        Specify the target microprocessor.
+	-c --compile-only  Only compile the files. Dont flash to chip.
+-p --port          Specify the port on which to flash.
+-b --baud          Specify the BAUD rate. Default is 57600.
+-a --asemble       Asemble an .asm file, link it and create an executable. Dont flash.
+-f --flash         Flash a hex file to the microcontroller.
+```
+
 #### Example usage:
-    picq -c -t pic18f4550 main.c
-    picq -t pic18f4550 -p /dev/cu.usbmodemFD121 -b 9600 main.c
-    picq -c -t pic18f4550 main.c
-    picq -a -t pic18f4550 main.asm subfile.asm
-    picq -f -t pic18f4550 main.hex    
+
+```zsh
+picq -c -t pic18f4550 main.c
+picq -t pic18f4550 -p /dev/cu.usbmodemFD121 -b 9600 main.c
+picq -c -t pic18f4550 main.c
+picq -a -t pic18f4550 main.asm subfile.asm
+picq -f -t pic18f4550 main.hex
+```
