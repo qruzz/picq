@@ -41,10 +41,18 @@ function help() {
     echo "  picq home          Open the github page with further description."
 }    
 
-function check_for_software() {
+function check_for_packages() {
+    # Add the repository for usbpicprog if not already added
+    PPA=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep fransscreuder1)
+    if [[ "$PPA" == "" ]]
+    then	
+	sudo add-apt-repository ppa:fransschreuder1/usbpicprog-stable
+	sudo apt-get update
+    fi
+    
     # Look for the required packages - redirect STDERR to /dev/null
     SDCC_PKG_OK=$(dpkg-query -W  --showformat='${Status}' sdcc 2> /dev/null | grep "install ok installed")
-    PICPGM_PKG_OK=$(dpkg-query -W --showformat='${Status}' picpgm 2> /dev/null | grep "installed")
+    PICPROG_PKG_OK=$(dpkg-query -W --showformat='${Status}' usbpicprog-stable | grep "install ok installed")
 
     # Enable the display of a progressbar when installing packages
     if [ ! -e /etc/apt/apt.conf.d/99progressbar ]
@@ -59,11 +67,12 @@ function check_for_software() {
 	echo "Installing SDCC"
 	sudo apt install sdcc
     fi
-    echo "Looking for PICPGM: $PICPGM_PKG_OK"
-    if [[ "$PICPGM_PKG_OK" == "" ]]
+
+    echo "Looking for USBPICPPROG: $PICPROG_PKG_OK"
+    if [[ "$PICPROG_PKG_OK" == "" ]]
     then
-	echo "Instlaling PICPGM"
-	sudo apt install picpgm
+	echo "Downloading USBPICPPROG"
+	sudo apt install usbpicprog
     fi
 }
 

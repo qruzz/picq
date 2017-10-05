@@ -2,7 +2,7 @@
 
 picq is a complete cli for developing embedded systems on the Microchip PIC16 and PIC18 microcontrollers.
 It bundles the sdcc compiler, which in turn bundles the gputils consisting of the gpasm assembler and gplink linker.
-For flashing the executable hex files to the target microcontroller, picq is utilising the picpgm cli.
+For flashing the executable hex files to the target microcontroller, picq is utilising the usbpicprog cli.
 
 ## Installation:
 For linux picq can be installed through `apt-get` package manager. It is also available on the forked Homebrew, Linuxbrew:
