@@ -41,13 +41,33 @@ function help() {
     echo "  picq home          Open the github page with further description."
 }    
 
-#function check_for_software() {
-    SDCC_PKG_OK=$(dpkg-query -W  --showformat='${Status}' sdcc | grep "installed ok installed")
+function check_for_software() {
+    # Look for the required packages - redirect STDERR to /dev/null
+    SDCC_PKG_OK=$(dpkg-query -W  --showformat='${Status}' sdcc 2> /dev/null | grep "install ok installed")
+    PICPGM_PKG_OK=$(dpkg-query -W --showformat='${Status}' picpgm 2> /dev/null | grep "installed")
+
+    # Enable the display of a progressbar when installing packages
+    if [ ! -e /etc/apt/apt.conf.d/99progressbar ]
+    then
+	echo 'Dpkg::Progress-Fancy "1";' >> /etc/apt/apt.conf.d/99progressbar
+    fi
+
+    # Start looking for the packages, if grep returned an empty string, they dont exist. Install them
     echo "Looking for SDCC: $SDCC_PKG_OK"
     if [[ "$SDCC_PKG_OK" == "" ]]
     then
 	echo "Installing SDCC"
-	sudo apt-get install sdcc
+	sudo apt install sdcc
     fi
+    echo "Looking for PICPGM: $PICPGM_PKG_OK"
+    if [[ "$PICPGM_PKG_OK" == "" ]]
+    then
+	echo "Instlaling PICPGM"
+	sudo apt install picpgm
+    fi
+}
+
+
+    
     
 

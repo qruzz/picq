@@ -23,6 +23,12 @@ brew update && brew install picq
 
 If for some reason, your not using a package manager, you can clone this git repository, and place the excecutable in your PATH.
 
+The first time you run the program, it will check if you have the necessary packages installed. If not, it will install them for you. Therefore you should run it using sudo.
+
+```zsh
+sudo picq
+```
+
 ## Usage:
 
 ```zsh
