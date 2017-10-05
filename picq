@@ -2,13 +2,18 @@
 
 # Color Definitions
 
+GREEN='\033[1;32m'
+BLUE='\033[1;34m'
 RED='\033[0;91m'
 NC='\033[0m'
 
 # UTF8 Icons
 
-CHECK='\u2713'
-CROSS='\u0445'
+CHECK='\033[1;32m\u2713 \033[0m'
+CROSS='\033[1;91m\u0445 \033[0m'
+SEARCH='\033[1;34m==>\033[0m'
+INSTALL='\033[1;32m==>\033[0m'
+ERROR='\033[4;31mError\033[0m:'
 
 function help() {
     echo "Description:"
@@ -42,17 +47,21 @@ function help() {
 }    
 
 function check_for_packages() {
-    # Add the repository for usbpicprog if not already added
-    PPA=$(grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep fransscreuder1)
+    # Check if the repository exists in the apt sources
+    PPA=$(ls /etc/apt/sources.list.d | grep "fransschreuder1-usbpicprog-stable-xenial.list")
+
+    # Add the repository for usbpicprog if not already added and update apt
     if [[ "$PPA" == "" ]]
-    then	
+    then
+	echo "${INSTALL} Adding repository to apt"
 	sudo add-apt-repository ppa:fransschreuder1/usbpicprog-stable
+	echo "${INSTALL} Updating apt"
 	sudo apt-get update
     fi
     
     # Look for the required packages - redirect STDERR to /dev/null
-    SDCC_PKG_OK=$(dpkg-query -W  --showformat='${Status}' sdcc 2> /dev/null | grep "install ok installed")
-    PICPROG_PKG_OK=$(dpkg-query -W --showformat='${Status}' usbpicprog-stable | grep "install ok installed")
+    SDCC_PKG_OK=$(dpkg-query -W  --showformat='${Status}' sdcc 2> /dev/null | grep -o "installed")
+    PICPROG_PKG_OK=$(dpkg-query -W --showformat='${Status}' usbpicprog 2> /dev/null | grep -o "installed")
 
     # Enable the display of a progressbar when installing packages
     if [ ! -e /etc/apt/apt.conf.d/99progressbar ]
@@ -61,22 +70,27 @@ function check_for_packages() {
     fi
 
     # Start looking for the packages, if grep returned an empty string, they dont exist. Install them
-    echo "Looking for SDCC: $SDCC_PKG_OK"
-    if [[ "$SDCC_PKG_OK" == "" ]]
+
+    echo "${SEARCH} Looking for SDCC"
+    if [[ "$SDCC_PKG_OK" == "installed" ]]
     then
-	echo "Installing SDCC"
+	echo "${SEARCH} ${CHECK}SDCC is $SDCC_PKG_OK"
+    elif [[ "$SDCC_PKG_OK" == "" ]]
+    then
+	echo "${SEARCH} ${CROSS}SDCC is not installled"
+	echo "${INSTALL} Installing SDCC"
 	sudo apt install sdcc
     fi
 
-    echo "Looking for USBPICPPROG: $PICPROG_PKG_OK"
-    if [[ "$PICPROG_PKG_OK" == "" ]]
+    echo "${SEARCH} Looking for USBPICPPROG"
+    if [[ "$PICPROG_PKG_OK" == "installed" ]]
     then
-	echo "Downloading USBPICPPROG"
+	echo "${SEARCH} ${CHECK}USBPICPROG is $PICPROG_PKG_OK"
+    elif [[ "$USBPICPROG" == "" ]]
+    then
+	echo "${SEARCH} ${CROSS}USBPICPROG is not installed"
+	echo "${INSTALL} Installing USBPICPPROG"
 	sudo apt install usbpicprog
     fi
 }
-
-
     
-    
-
