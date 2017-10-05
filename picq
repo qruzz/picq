@@ -70,7 +70,6 @@ function check_for_packages() {
     fi
 
     # Start looking for the packages, if grep returned an empty string, they dont exist. Install them
-
     echo "${SEARCH} Looking for SDCC"
     if [[ "$SDCC_PKG_OK" == "installed" ]]
     then
@@ -93,4 +92,3 @@ function check_for_packages() {
 	sudo apt install usbpicprog
     fi
 }
-    
