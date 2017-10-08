@@ -100,3 +100,49 @@ function check_for_packages() {
 	sudo apt install usbpicprog
     fi
 }
+
+function version() {
+    
+    echo "Current version picq is v0.1a."
+
+    # Check to see what is the latest version somehow..
+    # Compare the installed version with the latest version..
+    # Ask if they would like to update, if not up to date..
+}
+
+function compile_only() {
+
+    # Use sdcc to compile the file
+    # Dont use the assembler or linker
+}
+
+function asemble() {
+
+    # Use gpasm to asemble the file
+    
+    
+
+}
+
+case $1 in
+    -h|--help)
+	help
+	;;
+    -i|--install)
+	check_for_packages
+	;;
+    -v|--version)
+	version
+	;;
+    -c|--compile-only)
+	compile_only
+	;;
+    -a|--asemble)
+	asseble
+	;;
+    -f|--flash)
+	flash
+	;;
+esac
+
+    
