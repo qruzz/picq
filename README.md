@@ -25,8 +25,10 @@ If for some reason, your not using a package manager, you can clone this git rep
 
 The first time you run the program, it will check if you have the necessary packages installed. If not, it will install them for you. Therefore you should run it using sudo.
 
+To install all the dependencies needed for the software to work, you should start off by calling the script with the install option. This will install or update packages that are required.
+
 ```zsh
-sudo picq
+sudo --install picq
 ```
 
 ## Usage:

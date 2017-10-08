@@ -25,6 +25,7 @@ function help() {
     echo "  picq [OPTIONS...] <file_name> [<file_name>...]"
     echo ""
     echo "Option:"
+    echo "  -i --install       Install the needed dependencies, if not already installed."
     echo "  -h --help          Display the help screen."
     echo "  -v --version       Display version of cli."
     echo "  --verbose          Run as verbosem, showing more information."
@@ -50,6 +51,9 @@ function check_for_packages() {
     # Check if the repository exists in the apt sources
     PPA=$(ls /etc/apt/sources.list.d | grep "fransschreuder1-usbpicprog-stable-xenial.list")
 
+    echo "${SEARCH} Updating to remote repository..."
+    sudo apt update
+
     # Add the repository for usbpicprog if not already added and update apt
     if [[ "$PPA" == "" ]]
     then
@@ -74,6 +78,8 @@ function check_for_packages() {
     if [[ "$SDCC_PKG_OK" == "installed" ]]
     then
 	echo "${SEARCH} ${CHECK}SDCC is $SDCC_PKG_OK"
+	echo "${SEARCH{ Checking for update"
+	sudo apt install --only-upgrade sdcc
     elif [[ "$SDCC_PKG_OK" == "" ]]
     then
 	echo "${SEARCH} ${CROSS}SDCC is not installled"
@@ -85,6 +91,8 @@ function check_for_packages() {
     if [[ "$PICPROG_PKG_OK" == "installed" ]]
     then
 	echo "${SEARCH} ${CHECK}USBPICPROG is $PICPROG_PKG_OK"
+	echo "${SEARCH} Checking for update"
+	sudo apt install --only-upgrade usbpicprog
     elif [[ "$USBPICPROG" == "" ]]
     then
 	echo "${SEARCH} ${CROSS}USBPICPROG is not installed"
