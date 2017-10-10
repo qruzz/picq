@@ -78,11 +78,11 @@ function check_for_packages() {
     if [[ "$SDCC_PKG_OK" == "installed" ]]
     then
 	echo "${SEARCH} ${CHECK}SDCC is $SDCC_PKG_OK"
-	echo "${SEARCH{ Checking for update"
+	echo "${SEARCH} Checking for update"
 	sudo apt install --only-upgrade sdcc
     elif [[ "$SDCC_PKG_OK" == "" ]]
     then
-	echo "${SEARCH} ${CROSS}SDCC is not installled"
+	echo "${SEARCH} ${CROSS} SDCC is not installled"
 	echo "${INSTALL} Installing SDCC"
 	sudo apt install sdcc
     fi
@@ -98,31 +98,31 @@ function check_for_packages() {
 	echo "${SEARCH} ${CROSS}USBPICPROG is not installed"
 	echo "${INSTALL} Installing USBPICPPROG"
 	sudo apt install usbpicprog
+    else
+	help
     fi
 }
 
-function version() {
+#function version() {
     
-    echo "Current version picq is v0.1a."
+    #echo "Current version picq is v0.1a."
 
     # Check to see what is the latest version somehow..
     # Compare the installed version with the latest version..
     # Ask if they would like to update, if not up to date..
-}
+#}
 
-function compile_only() {
+#function compile_only() {
 
     # Use sdcc to compile the file
     # Dont use the assembler or linker
-}
+#}
 
-function asemble() {
+#function asemble() {
 
     # Use gpasm to asemble the file
     
-    
-
-}
+#}
 
 case $1 in
     -h|--help)
@@ -131,18 +131,4 @@ case $1 in
     -i|--install)
 	check_for_packages
 	;;
-    -v|--version)
-	version
-	;;
-    -c|--compile-only)
-	compile_only
-	;;
-    -a|--asemble)
-	asseble
-	;;
-    -f|--flash)
-	flash
-	;;
 esac
-
-    
