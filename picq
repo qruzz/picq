@@ -131,6 +131,9 @@ function check_for_packages() {
 
 function version() {
 
+    # Use git tag to tag the version..
+    # Use git ls-remote https://github.com/qruzz/picq.git --tags | grep <some_branch> to get the tags
+    
     # Check what version is stored on git
     GIT_VERSION=''
     
@@ -146,6 +149,7 @@ function version() {
 	# Ask if they would like to update, if not up to date..
 	echo "Would you like to update to the latest version? (yes/no)"
 	
+	# Check if whether the user wants to update or not
 	RESPONSE=$1
 	if [[ "${RESPONSE}" == "yes" | "y" ]]
 	then
@@ -157,7 +161,6 @@ function version() {
 	
 	break
     fi
-    
 }
 
 #function compile_only() {
@@ -165,6 +168,7 @@ function version() {
     # Use sdcc to compile the file
     # Dont use the assembler or linker
 #}
+
 
 #function asemble() {
 
