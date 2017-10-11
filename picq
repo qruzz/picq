@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+VERSION="0.1"
+
 # Color Definitions
 
 GREEN='\033[1;32m'
@@ -45,7 +47,31 @@ function help() {
     echo ""
     echo "Further help:"
     echo "  picq home          Open the github page with further description."
-}    
+}
+
+function install_in_path() {
+    # Make the file excecutable
+    sudo chmod +x picq
+
+    # Copy the file to path
+    sudo mv picq /usr/bin
+}
+
+function update_self_to_latest() {
+    # Get the latest version from Github
+    git clone https://github.com/qruzz/picq.git
+
+    # Change directory and make the file executable
+    cd picq && sudo chmod +x picq
+
+    # Move the file to /usr/bin
+    sudo mv picq /usr/bin
+
+    # Clean up after the download
+    cd ..
+    rm -rf picq
+}
+    
 
 function check_for_packages() {
     # Check if the repository exists in the apt sources
@@ -103,14 +129,36 @@ function check_for_packages() {
     fi
 }
 
-#function version() {
-    
-    #echo "Current version picq is v0.1a."
+function version() {
 
-    # Check to see what is the latest version somehow..
-    # Compare the installed version with the latest version..
-    # Ask if they would like to update, if not up to date..
-#}
+    # Check what version is stored on git
+    GIT_VERSION=''
+    
+    echo "Current version picq is v${VERSION}."
+
+    # Compare the installed version with the latest version
+    if [[ "${VERSION} >= ${GIT_VERSION}" | bc -l ]]
+    then
+	echo "${CHECK} Your version is up to date: ${VERSION}"
+    else
+	echo "${CROSS} Your version is outdated: ${VERSION} ... ${GIT_VERSION}" 
+
+	# Ask if they would like to update, if not up to date..
+	echo "Would you like to update to the latest version? (yes/no)"
+	
+	RESPONSE=$1
+	if [[ "${RESPONSE}" == "yes" | "y" ]]
+	then
+	    update_self_to_latest
+	elif [[ "${RESPONSE}" == "no" | "n" ]]
+	then
+	    break
+	fi
+	
+	break
+    fi
+    
+}
 
 #function compile_only() {
 
@@ -130,5 +178,8 @@ case $1 in
 	;;
     -i|--install)
 	check_for_packages
+	;;
+    -v|--version)
+	version
 	;;
 esac
